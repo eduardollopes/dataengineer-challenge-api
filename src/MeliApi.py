@@ -17,6 +17,7 @@ class MeliEngineSearch:
         self.flat_json = FlatJson()
 
     def get_search_results(self, query_filter, select_columns):
+    
         offset = 0
         final_df = None
 
@@ -47,7 +48,7 @@ class MeliEngineSearch:
         data = response.text
         return data
     
-    def process_items_parallel(self, list_items_id, select_columns, max_threads=5):
+    def process_items_parallel(self, list_items_id, select_columns, max_threads=3):
         results_list = []
 
         with ThreadPoolExecutor(max_threads) as executor:

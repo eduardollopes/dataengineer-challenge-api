@@ -19,4 +19,7 @@ ENV PATH $PATH:$SPARK_HOME/bin
 COPY . .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-CMD ["/usr/local/spark/bin/spark-submit", "--master", "local", "main.py"]
+RUN rm -rf /app/data/*
+
+CMD ["/usr/local/spark/bin/spark-submit", "--master", "local", "main.py"] && \
+    cp /app/data/*.csv $PWD/data

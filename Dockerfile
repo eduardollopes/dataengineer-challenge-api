@@ -5,17 +5,18 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y openjdk-8-jdk wget python3 python3-pip
 
-RUN wget https://downloads.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop2.7.tgz && \
-    tar -xvzf spark-3.2.0-bin-hadoop2.7.tgz && \
-    mv spark-3.2.0-bin-hadoop2.7 /usr/local/spark && \
-    rm spark-3.2.0-bin-hadoop2.7.tgz
+ARG SPARK_VERSION=3.4.2
+ENV HADOOP_VERSION=3
+
+RUN wget https://downloads.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} /usr/local/spark && \
+    rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 
 ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin
 
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
-
 COPY . .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 CMD ["/usr/local/spark/bin/spark-submit", "--master", "local", "main.py"]

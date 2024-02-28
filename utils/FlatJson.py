@@ -44,3 +44,4 @@ class FlatJson:
             array_df = array_df.select("*", *struct_fields).drop(array_col)
 
         return array_df
+    

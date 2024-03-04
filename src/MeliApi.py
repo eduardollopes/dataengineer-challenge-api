@@ -1,3 +1,8 @@
+"""
+Meli Engine Search
+
+Este módulo fornece uma classe para realizar pesquisas na API do Mercado Livre e processar dados de itens de forma assíncrona.
+"""
 import requests
 from concurrent.futures import ThreadPoolExecutor
 import sys
@@ -11,13 +16,40 @@ from utils.FlatJson import FlatJson
 
 
 class MeliEngineSearch:
-    def __init__(self, spark):
+    """
+    Classe para realizar pesquisas na API do Mercado Livre e processar dados de itens de forma assíncrona.
 
+    Atributos:
+    - spark: Uma instância do SparkSession para processamento de dados.
+    - flat_json: Uma instância da classe FlatJson para aplanar dados JSON.
+
+    Métodos Públicos:
+    - get_search_results(query_filter, select_columns): Realiza uma pesquisa na API do Mercado Livre com base no filtro de consulta.
+    - get_item_data(item_id): Obtém dados detalhados de um item específico usando seu ID.
+    - process_items_parallel(list_items_id, select_columns, max_threads=3): Processa dados de vários itens de forma paralela.
+
+    """
+    def __init__(self, spark):
+        """
+        Inicializa a instância da classe MeliEngineSearch.
+
+        Parâmetros:
+        - spark: Uma instância do SparkSession.
+        """
         self.spark = spark
         self.flat_json = FlatJson()
 
     def get_search_results(self, query_filter, select_columns):
-    
+        """
+        Obtém resultados de pesquisa da API do Mercado Livre.
+
+        Parâmetros:
+        - query_filter: Termo de pesquisa.
+        - select_columns: Colunas selecionadas para o resultado.
+
+        Retorna:
+        Um DataFrame contendo os resultados da pesquisa.
+        """  
         offset = 0
         final_df = None
 
@@ -43,12 +75,32 @@ class MeliEngineSearch:
         return final_df
     
     def get_item_data(self, item_id):
+        """
+        Obtém dados detalhados de um item específico usando seu ID.
+
+        Parâmetros:
+        - item_id: ID do item.
+
+        Retorna:
+        Dados detalhados do item em formato JSON.
+        """
         url = f'https://api.mercadolibre.com/items/{item_id}'
         response = requests.get(url)
         data = response.text
         return data
     
     def process_items_parallel(self, list_items_id, select_columns, max_threads=3):
+        """
+        Processa dados de vários itens de forma paralela.
+
+        Parâmetros:
+        - list_items_id: Lista de IDs de itens a serem processados.
+        - select_columns: Colunas selecionadas para o resultado.
+        - max_threads: Número máximo de threads para execução paralela.
+
+        Retorna:
+        Um DataFrame contendo os dados processados dos itens.
+        """
         results_list = []
 
         with ThreadPoolExecutor(max_threads) as executor:

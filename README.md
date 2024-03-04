@@ -1,37 +1,37 @@
-# Data Engineer Challenge - API
+# Desafio de Engenheiro de Dados - API
 
-This project aims to consume data from an API and process it using Apache Spark.
-The proposal is to create an engine capable of making requests based on the search term, and to save this data for future exploration.
+Este projeto tem como objetivo consumir dados de uma API e processá-los usando o Apache Spark.
+A proposta é criar uma engine capaz de fazer requisições com base no termo de pesquisa e salvar esses dados para explorações futuras.
 
-## Repository Structure
+## Estrutura do Repositório
 
-- `data/files`: Folder for storing processing results.
-- `src/`: Contains the project's source code.
-- `utils/`: Utility modules, such as JSON data processing.
-- `Dockerfile`: Configuration file for creating the Docker image.
-- `main.py`: Main script responsible for consuming the API and processing the data.
-- `README.md`: This documentation file.
-- `requirements.txt`: List of project dependencies.
+- `data/files`: Pasta para armazenar os resultados do processamento.
+- `src/`: Contém o código-fonte do projeto.
+- `utils/`: Módulos utilitários, como processamento de dados JSON.
+- `Dockerfile`: Arquivo de configuração para criar a imagem Docker.
+- `main.py`: Script principal responsável por consumir a API e processar os dados.
+- `README.md`: Este arquivo de documentação.
+- `requirements.txt`: Lista de dependências do projeto.
 
-## Requirements
+## Requisitos
 
-Before running the project, make sure you have installed:
+Antes de executar o projeto, certifique-se de ter instalado:
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-## Running the Project
+## Executando o Projeto
 
-1. Build the Docker image:
+1. Construa a imagem Docker:
     ```bash
-   docker build -t challenge-api .
+    docker build -t challenge-api .
     ```
 
-2. Run the image to perform the processing:
+2. Execute a imagem para realizar o processamento:
     ```bash
     docker run -v $PWD/data:/app/data challenge-api
     ```
 
-This will start the process of consuming the API, processing the data and saving the results in the `data/files` directory.
+Isso iniciará o processo de consumo da API, processamento dos dados e salvamento dos resultados no diretório `data/files`.
 
-## Contributing
-Feel free to contribute by opening issues or submitting pull requests.
+## Contribuições
+Sinta-se à vontade para contribuir abrindo problemas ou enviando pull requests.

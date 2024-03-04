@@ -1,36 +1,37 @@
-""""
-This module contains the FlatJson class. This is a Class that provides 
-methods to flatten nested JSON structures in a PySpark DataFrame.
+"""
+Este módulo contém a classe FlatJson. Esta é uma classe que fornece
+métodos para reazliar um flat em estruturas JSON e realizar a normalização em um DataFrame PySpark.
 """
 
 from pyspark.sql.functions import col, explode_outer
 
 class FlatJson:
     """
-    A class that provides methods to flatten nested JSON structures in a PySpark DataFrame.
+    Uma classe que fornece métodos para realizar o flat estruturas JSON em um DataFrame PySpark.
 
-    The main functionality of this class revolves around flattening nested structures,
-    converting array columns to string representation, and cleaning column names.
+    A funcionalidade principal desta classe gira em torno de realizar o flat de estruturas JSON,
+    e converter colunas de array.
     """
 
     def __init__(self):
         """
-        Initializes a new instance of the FlatJson class.
+        Inicializa uma nova instância da classe FlatJson.
         """
         pass
     
     def flatten_structs_first_level(self, array_df):
         """
-        Flattens the first level of structs within array columns in a PySpark DataFrame.
+        Realiza o flat do objeto no primeiro nível de estruturas dentro de colunas de array em um DataFrame PySpark.
 
-        This method flattens only the first level of structs within array columns by
-        exploding the array columns and selecting the fields of the first level of structs.
+        Este método realiza o flat apenas no primeiro nível de estruturas dentro de colunas do tipo array,
+        explodindo as colunas de array sem a necessidade de fornecer um schema, ao mesmo tempo 
+        selecionando os campos do primeiro nível de estruturas.
 
-        Parameters:
-        - array_df (pyspark.sql.dataframe.DataFrame): The DataFrame with array columns containing structs.
+        Parâmetros:
+        - array_df (pyspark.sql.dataframe.DataFrame): O DataFrame com colunas de array contendo estruturas.
 
-        Returns:
-        pyspark.sql.dataframe.DataFrame: The flattened DataFrame.
+        Retorna:
+        pyspark.sql.dataframe.DataFrame: O DataFrame normalizado no primeiro nivel de forma automatica.
         """
         array_cols = [c[0] for c in array_df.dtypes if c[1][:5] == "array"]
 

@@ -1,4 +1,3 @@
-import os
 from pyspark.sql import SparkSession
 
 from src.MeliApi import MeliEngineSearch
@@ -35,3 +34,6 @@ if __name__ == '__main__':
         .option("header", "true") \
         .option("encoding", "UTF-8") \
         .csv("/app/data/files")
+
+
+
